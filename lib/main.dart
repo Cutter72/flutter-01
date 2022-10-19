@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_01/question.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,28 +8,21 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State createState() {
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questions = ["q1", "q2", "q3"];
-  var qIndex = 0;
-  var aMixedList = [
-    'Some text',
-    1,
-    5.99,
-    ['a nested list!', 1]
-  ];
+class _MyAppState extends State<MyApp> {
+  final _questions = ["q1", "q2", "q3"];
+  var _qIndex = 0;
 
   Function()? onClick(msg) {
     return () {
       print("onClick!");
       print(msg);
-      setState(() {
-        qIndex++;
-      });
-      print("qIndex=$qIndex");
+      setState(() {});
+      print("qIndex=$_qIndex");
+      _qIndex++;
     };
   }
 
@@ -40,7 +34,7 @@ class MyAppState extends State<MyApp> {
         title: Text("Title"),
       ),
       body: Column(children: <Widget>[
-        Text(questions[qIndex]),
+        Question(_questions[_qIndex]),
         ElevatedButton(
           onPressed: onClick("msg"),
           child: Text("onClick"),
