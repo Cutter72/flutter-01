@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_01/answer.dart';
 import 'package:flutter_01/question.dart';
@@ -14,13 +16,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _questions = ["q1", "q2", "q3"];
+  static const List<Map<String, List<String>>> _questions = [
+    {
+      "q": ["Favourite color?"],
+      "ans": [
+        "red",
+        "gree",
+        "blue",
+      ]
+    },
+    {
+      "q": ["Favourite animal?"],
+      "ans": [
+        "lion",
+        "crocodile",
+        "delphin",
+      ]
+    },
+    {
+      "q": ["Favourite vegetable?"],
+      "ans": [
+        "potato",
+        "pumpkin",
+        "tomato",
+      ]
+    },
+  ];
   var _qIndex = 0;
 
-  VoidCallback onClick(String msg) {
+  VoidCallback _onClick() {
     return () {
       print("onClick!");
-      print(msg);
       setState(() {});
       print("qIndex=$_qIndex");
       _qIndex++;
@@ -34,12 +60,14 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text("Title"),
       ),
-      body: Column(children: <Widget>[
-        Question(_questions[_qIndex]),
-        Answer(onClick("Answer 1")),
-        Answer(onClick("Answer 2")),
-        Answer(onClick("Answer 3")),
-      ]),
+      body: _qIndex < _questions.length
+          ? Column(children: <Widget>[
+              Question(_questions[_qIndex]["q"]![0]),
+              ..._questions[_qIndex]["ans"]!.map((e) => Answer(_onClick(), e)).toList(),
+            ])
+          : const Center(
+              child: Text("You did it!"),
+            ),
     ));
   }
 }
