@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_01/answer.dart';
 import 'package:flutter_01/question.dart';
 
 void main() => runApp(MyApp());
@@ -16,7 +17,7 @@ class _MyAppState extends State<MyApp> {
   final _questions = ["q1", "q2", "q3"];
   var _qIndex = 0;
 
-  Function()? onClick(msg) {
+  VoidCallback onClick(String msg) {
     return () {
       print("onClick!");
       print(msg);
@@ -35,18 +36,9 @@ class _MyAppState extends State<MyApp> {
       ),
       body: Column(children: <Widget>[
         Question(_questions[_qIndex]),
-        ElevatedButton(
-          onPressed: onClick("msg"),
-          child: Text("onClick"),
-        ),
-        ElevatedButton(
-          onPressed: () => print("clicked! 2"),
-          child: Text("answaer2"),
-        ),
-        ElevatedButton(
-          onPressed: () => print("clicked! 3"),
-          child: Text("answaer3"),
-        ),
+        Answer(onClick("Answer 1")),
+        Answer(onClick("Answer 2")),
+        Answer(onClick("Answer 3")),
       ]),
     ));
   }
