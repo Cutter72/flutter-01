@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_01/answer.dart';
-import 'package:flutter_01/question.dart';
 import 'package:flutter_01/quiz.dart';
 import 'package:flutter_01/result.dart';
 
@@ -51,14 +47,14 @@ class _MyAppState extends State<MyApp> {
     },
   ];
   var _qIndex = 0;
+  int _totalScore = 0;
 
-  VoidCallback _onClick() {
-    return () {
+  void _onClick(int score) {
+      _totalScore += score;
       print("onClick!");
       setState(() {});
       print("qIndex=$_qIndex");
       _qIndex++;
-    };
   }
 
   @override
@@ -68,7 +64,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text("Title"),
       ),
-      body: _qIndex < _questions.length ? Quiz(_questions, _qIndex, _onClick()) : Result(),
+      body: _qIndex < _questions.length ? Quiz(_questions, _qIndex, _onClick) : Result(_totalScore),
     ));
   }
 }

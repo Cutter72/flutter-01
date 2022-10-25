@@ -7,7 +7,7 @@ class Quiz extends StatelessWidget {
 
   final int _qIndex;
 
-  final VoidCallback _onClick;
+  final Function _onClick;
 
   Quiz(this._questions, this._qIndex, this._onClick);
 
@@ -15,7 +15,7 @@ class Quiz extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
       Question(_questions[_qIndex]["q"]![0]["text"] as String),
-      ..._questions[_qIndex]["ans"]!.map((e) => Answer(_onClick, e["text"] as String)).toList(),
+      ..._questions[_qIndex]["ans"]!.map((e) => Answer(() => _onClick(e["score"]), e["text"] as String)).toList(),
     ]);
   }
 }
