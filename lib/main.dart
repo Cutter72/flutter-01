@@ -3,6 +3,8 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_01/answer.dart';
 import 'package:flutter_01/question.dart';
+import 'package:flutter_01/quiz.dart';
+import 'package:flutter_01/result.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,30 +18,36 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static const List<Map<String, List<String>>> _questions = [
+  static const List<Map<String, List<Map<String, Object>>>> _questions = [
     {
-      "q": ["Favourite color?"],
+      "q": [
+        {"text": "Favourite color?"}
+      ],
       "ans": [
-        "red",
-        "gree",
-        "blue",
-      ]
+        {"text": "red", "score": 1},
+        {"text": "green", "score": 2},
+        {"text": "blue", "score": 3},
+      ],
     },
     {
-      "q": ["Favourite animal?"],
+      "q": [
+        {"text": "Favourite animal?"}
+      ],
       "ans": [
-        "lion",
-        "crocodile",
-        "delphin",
-      ]
+        {"text": "lion", "score": 1},
+        {"text": "dolphin", "score": 2},
+        {"text": "monkey", "score": 3},
+      ],
     },
     {
-      "q": ["Favourite vegetable?"],
+      "q": [
+        {"text": "Favourite vegetable?"}
+      ],
       "ans": [
-        "potato",
-        "pumpkin",
-        "tomato",
-      ]
+        {"text": "potato", "score": 1},
+        {"text": "tomato", "score": 2},
+        {"text": "carrot", "score": 3},
+      ],
     },
   ];
   var _qIndex = 0;
@@ -60,14 +68,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text("Title"),
       ),
-      body: _qIndex < _questions.length
-          ? Column(children: <Widget>[
-              Question(_questions[_qIndex]["q"]![0]),
-              ..._questions[_qIndex]["ans"]!.map((e) => Answer(_onClick(), e)).toList(),
-            ])
-          : const Center(
-              child: Text("You did it!"),
-            ),
+      body: _qIndex < _questions.length ? Quiz(_questions, _qIndex, _onClick()) : Result(),
     ));
   }
 }
