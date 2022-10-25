@@ -57,6 +57,13 @@ class _MyAppState extends State<MyApp> {
       _qIndex++;
   }
 
+  void _reset() {
+      setState(() {
+        _totalScore = 0;
+        _qIndex = 0;
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -64,7 +71,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text("Title"),
       ),
-      body: _qIndex < _questions.length ? Quiz(_questions, _qIndex, _onClick) : Result(_totalScore),
+      body: _qIndex < _questions.length ? Quiz(_questions, _qIndex, _onClick) : Result(_totalScore, _reset),
     ));
   }
 }
